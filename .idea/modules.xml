@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/GJEffectLib/GJEffectLib.iml" filepath="$PROJECT_DIR$/GJEffectLib/GJEffectLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/GJEffectSample.iml" filepath="$PROJECT_DIR$/GJEffectSample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Leonidslib/Leonidslib.iml" filepath="$PROJECT_DIR$/Leonidslib/Leonidslib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+    </modules>
+  </component>
+</project>
