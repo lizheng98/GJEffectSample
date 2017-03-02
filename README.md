@@ -2,7 +2,7 @@
 
 某大型直播平台特效礼物动效引擎项目<br/>
 
-#Features：<br/><br/>
+#Features：
 
   支持Json动画格式解析<br/>
   支持动画数据网络下发，动态显示动画<br/>
@@ -12,7 +12,7 @@
   
   三者结合实现复杂、绚丽的动画效果<br/><br/>
   
-#Using：<br/>
+#Using：
 
   动画实现使用GJEffectView控件实现。<br/>
   
