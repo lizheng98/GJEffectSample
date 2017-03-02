@@ -1,8 +1,8 @@
-GJEffectLib
+#GJEffectLib
 
 某大型直播平台特效礼物动效引擎项目<br/>
 
-Features：<br/><br/>
+#Features：<br/><br/>
 
   支持Json动画格式解析<br/>
   支持动画数据网络下发，动态显示动画<br/>
@@ -12,7 +12,7 @@ Features：<br/><br/>
   
   三者结合实现复杂、绚丽的动画效果<br/><br/>
   
-Using：<br/>
+#Using：<br/>
 
   动画实现使用GJEffectView控件实现。<br/>
   
@@ -34,4 +34,4 @@ Using：<br/>
 		});
 		compositionLoader.execute("/storage/emulated/0/Android/data/com.gj.effectsample/effect/yacht.zip");
     ```
-    GJEffectSample 项目有示例动画压缩包"yacht.zip"文件
+  GJEffectSample 项目有示例动画压缩包"yacht.zip"文件
