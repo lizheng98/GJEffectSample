@@ -35,3 +35,20 @@
 		compositionLoader.execute("/storage/emulated/0/Android/data/com.gj.effectsample/effect/yacht.zip");
     ```
   GJEffectSample 项目有示例动画压缩包"yacht.zip"文件
+  
+  //加载网络动画数据
+  ```
+		EffectGiftLoader.getInstance(this).loadDataForComposition("http://",
+				new EffectComposition.OnCompositionLoadedListener() {
+					@Override
+					public void onCompositionLoaded(EffectComposition composition) {
+						Log.e(TAG, "showGifEffect...loading EffectComposition：" + composition);
+						//开始显示动画
+						if (composition != null) {
+							//显示大额礼物动效
+							mGJEffect.setComposition(composition);
+							mGJEffect.setVisibility(View.VISIBLE);
+							mGJEffect.startAnimation(animatorListenerAdapter);
+						}
+					}
+				});
