@@ -8,20 +8,20 @@ import android.animation.PropertyValuesHolder;
 import android.content.Context;
 import android.view.View;
 
+import com.airbnb.lottie.LottieAnimationView;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import pl.droidsonroids.gif.GifDrawable;
-import pl.droidsonroids.gif.GifImageView;
-
 /**
  * Created by Administrator on 2017/2/17.
  */
 
-public class GifLayer extends Layer {
+public class LottieLayer extends Layer {
+	public static String LOTTIE_IMAGE = "images";
 	public static String ACTION_TYPE_TRANS = "trans";
 	public static String ACTION_TYPE_APHA = "alpha";
 	public static String ACTION_TYPE_SCALE = "scale";
@@ -30,11 +30,17 @@ public class GifLayer extends Layer {
 
 	private boolean isLoop;
 
+	private String folder;
+
 	public boolean isLoop() {
 		return isLoop;
 	}
 
-	public GifLayer(Context context) {
+	public String getFolder() {
+		return folder;
+	}
+
+	public LottieLayer(Context context) {
 		super(context);
 	}
 
@@ -43,6 +49,7 @@ public class GifLayer extends Layer {
 		super.fromJson(json);
 		isLoop = json.optBoolean("loop", false);
 		try {
+			folder = json.getString("folder");
 			JSONArray actions = json.optJSONArray("actions");
 			if (actions != null) {
 				for (int i = 0; i < actions.length(); i++) {
@@ -184,20 +191,17 @@ public class GifLayer extends Layer {
 			@Override
 			public void onAnimationStart(Animator animation) {
 				super.onAnimationStart(animation);
-				if (GifLayer.this.target instanceof GifImageView) {
-					((GifImageView) GifLayer.this.target).setVisibility(View.VISIBLE);
-					((GifDrawable) ((GifImageView) GifLayer.this.target).getDrawable()).start();
+				if (LottieLayer.this.target instanceof LottieAnimationView) {
+					((LottieAnimationView) LottieLayer.this.target).setVisibility(View.VISIBLE);
+					((LottieAnimationView) LottieLayer.this.target).playAnimation();
 				}
 			}
 
 			@Override
 			public void onAnimationEnd(Animator animation) {
 				super.onAnimationEnd(animation);
-				if (GifLayer.this.endIsVisible) {
-					if (GifLayer.this.target instanceof GifImageView) {
-						((View) GifLayer.this.target).setVisibility(View.INVISIBLE);
-						((GifImageView) GifLayer.this.target).destroyDrawingCache();
-					}
+				if (LottieLayer.this.endIsVisible) {
+					((View) LottieLayer.this.target).setVisibility(View.INVISIBLE);
 				}
 			}
 		});

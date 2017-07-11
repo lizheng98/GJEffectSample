@@ -1,8 +1,8 @@
 package com.gj.effect;
 
 import android.content.Context;
-import android.util.Log;
 
+import com.gj.effect.util.EvtLog;
 import com.gj.file.load.AsyLoadTask;
 import com.gj.file.load.DiskCache;
 import com.gj.file.load.FileCache;
@@ -10,7 +10,6 @@ import com.gj.file.load.LoadTask;
 import com.gj.file.load.LoadingListener;
 
 import java.io.File;
-
 
 /**
  * Created by Administrator on 2017/2/13.
@@ -52,17 +51,18 @@ public class EffectGiftLoader {
 	 * @param url
 	 */
 	public void loadData(String url, LoadingListener loadingListener) {
-//		loadingListener.onLoadingSuccess("/storage/emulated/0/Android/data/com.efeizao.feizao/effect/calste.zip");
+//		loadingListener.onLoadingSuccess("/storage/emulated/0/Android/data/com.guojiang.meitu.boys/effect/growing.zip");
 //		return;
 		File cacheFile = mGifCache.get(url);
 		if (cacheFile.exists()) {
 			loadingListener.onLoadingSuccess(cacheFile.getAbsolutePath());
-			Log.i(TAG, "动效资源已有缓存");
+			EvtLog.i(TAG, "动效资源已有缓存");
 			return;
 		}
 		final String cacheFileAbsPath = cacheFile.getAbsolutePath() + EFFECT_TEMP_FILE_SUBIFX;
 		mLoadTask.loadTask(url, cacheFileAbsPath, loadingListener);
 	}
+
 
 	/**
 	 * 加载动效礼物，并解析动效数据

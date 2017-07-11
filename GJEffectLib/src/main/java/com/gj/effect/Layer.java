@@ -14,6 +14,7 @@ public abstract class Layer {
 	public static final String LAYER_TYPE_IMAGE = "IMAGE";
 	public static final String LAYER_TYPE_GIF = "GIF";
 	public static final String LAYER_TYPE_PARTICLE = "PARTICLE";
+	public static final String LAYER_TYPE_SVG = "SVG";
 	protected Context context;
 	protected int id;
 	protected String type;

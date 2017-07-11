@@ -1,14 +1,13 @@
 package com.gj.effect;
 
 import android.content.Context;
-
-import com.gj.file.load.AlxMultiTask;
+import android.os.AsyncTask;
 
 /**
  * Created by Administrator on 2017/2/15.
  */
 
-public class CompositionLoader extends AlxMultiTask<String, Void, EffectComposition> {
+public class CompositionLoader extends AsyncTask<String, Void, EffectComposition> {
 
 	private EffectComposition.OnCompositionLoadedListener mLoadedListener;
 	private Context mContext;

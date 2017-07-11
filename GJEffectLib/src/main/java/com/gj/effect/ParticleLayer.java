@@ -53,7 +53,7 @@ public class ParticleLayer extends Layer {
 	//number of particles launched on the one shot,如果参数不为0，则是一次性发射
 	private int numParticles;
 
-	private ArrayList<String> particleBtimapValues = new ArrayList<String>();
+	private ArrayList<String> particleBtimapValues = new ArrayList<>();
 
 	//礼物的emit的位置，有两种方式，1、关联refId，2、设置emit位置
 	private int refId = REF_LAYER_ID_NULL;
@@ -251,8 +251,8 @@ public class ParticleLayer extends Layer {
 			public void onAnimationUpdate(ValueAnimator animation) {
 				if (ParticleLayer.this.target instanceof ParticleSystem) {
 					if (getRefId() == REF_LAYER_ID_NULL) {
-						int emitX = getEmit(getEmitStartMinX(), getEmitStartMaxX(), (Float) animation.getAnimatedValue());
-						int emitY = getEmit(getEmitStartMinY(), getEmitStartMaxY(), (Float) animation.getAnimatedValue());
+						int emitX = getEmit(getEmitStartMinX(), getEmitStartMaxX(), (float) animation.getAnimatedValue());
+						int emitY = getEmit(getEmitStartMinY(), getEmitStartMaxY(), (float) animation.getAnimatedValue());
 						((ParticleSystem) ParticleLayer.this.target).updateEmitPoint(emitX, emitY);
 					} else {
 						((ParticleSystem) ParticleLayer.this.target).updateEmitPoint(ParticleLayer.this.refView);

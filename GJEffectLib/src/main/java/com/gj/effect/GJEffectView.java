@@ -5,16 +5,25 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.airbnb.lottie.ImageAssetDelegate;
+import com.airbnb.lottie.LottieAnimationView;
+import com.airbnb.lottie.LottieComposition;
+import com.airbnb.lottie.LottieImageAsset;
+import com.airbnb.lottie.OnCompositionLoadedListener;
 import com.gj.effect.util.BitmapUtility;
 import com.plattysoft.leonids.ParticleSystem;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import pl.droidsonroids.gif.GifDrawable;
@@ -46,7 +55,7 @@ public class GJEffectView extends RelativeLayout {
 		init(context, attrs);
 	}
 
-	private void init(Context context, AttributeSet attrs) {
+	private void init(Context context, @Nullable AttributeSet attrs) {
 		this.mContext = context.getApplicationContext();
 //		TypedArray ta = getContext().obtainStyledAttributes(attrs, R.styleable.LottieAnimationView);
 //		String fileName = ta.getString(R.styleable.LottieAnimationView_lottie_fileName);
@@ -60,6 +69,7 @@ public class GJEffectView extends RelativeLayout {
 //		ta.recycle();
 //		setLayerType(LAYER_TYPE_SOFTWARE, null);
 //		setAnimator();
+
 	}
 
 	@Override
@@ -77,6 +87,15 @@ public class GJEffectView extends RelativeLayout {
 		layoutParams.width = composition.getWidth();
 		layoutParams.height = composition.getHeigth();
 		layoutParams.topMargin = composition.getmMarginTop();
+		this.setLayoutParams(layoutParams);
+		//开始显示时，初始化动画参数
+		this.setAlpha(1);
+		this.setTranslationX(0);
+		this.setTranslationY(0);
+		this.setScaleX(1);
+		this.setScaleY(1);
+		this.setRotation(0);
+
 		for (int i = 0; i < composition.getmLayers().size(); i++) {
 			Layer layer = composition.getmLayers().get(i);
 			if (layer instanceof ImageLayer) {
@@ -85,6 +104,8 @@ public class GJEffectView extends RelativeLayout {
 				addEffectPartile(composition.getmLayers(), (ParticleLayer) layer);
 			} else if (layer instanceof GifLayer) {
 				addEffectGif((GifLayer) layer);
+			} else if (layer instanceof LottieLayer) {
+				addEffectLottie((LottieLayer) layer);
 			}
 		}
 	}
@@ -144,6 +165,7 @@ public class GJEffectView extends RelativeLayout {
 		GifImageView gifImageView = new GifImageView(mContext);
 		LayoutParams params = new LayoutParams(layer.getWidth(), layer.getHeigth());
 		params.leftMargin = layer.getStartPosition()[0];
+
 		params.topMargin = layer.getStartPosition()[1];
 		try {
 			GifDrawable gifDrawable = new GifDrawable(mEffectComposition.getmEffectFilePath() + File.separator + layer.getValue());
@@ -151,9 +173,47 @@ public class GJEffectView extends RelativeLayout {
 			gifDrawable.setLoopCount(layer.isLoop() ? Character.MAX_VALUE : 1);
 			gifImageView.setImageDrawable(gifDrawable);
 			gifImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+			gifImageView.setVisibility(View.INVISIBLE);
 			//显示时，设置动画对象
 			layer.setTarget(gifImageView);
 			addView(gifImageView, params);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void addEffectLottie(final LottieLayer layer) {
+		final LottieAnimationView animationView = new LottieAnimationView(mContext);
+		LayoutParams params = new LayoutParams(layer.getWidth(), layer.getHeigth());
+		params.leftMargin = layer.getStartPosition()[0];
+		params.topMargin = layer.getStartPosition()[1];
+		try {
+			String dataFilePath = mEffectComposition.getmEffectFilePath() + File.separator + layer.getFolder() + File.separator + layer.getValue();
+			File data = new File(dataFilePath);
+			InputStream inputStream = new FileInputStream(data);
+			LottieComposition.Factory.fromInputStream(mContext, inputStream, new OnCompositionLoadedListener() {
+				@Override
+				public void onCompositionLoaded(LottieComposition composition) {
+					animationView.setComposition(composition);
+				}
+			});
+
+			animationView.setVisibility(View.INVISIBLE);
+			animationView.loop(layer.isLoop());
+			animationView.setImageAssetDelegate(new ImageAssetDelegate() {
+				@Override
+				public Bitmap fetchBitmap(LottieImageAsset asset) {
+					String imagePath = mEffectComposition.getmEffectFilePath() + File.separator + layer.getFolder() + File.separator + LottieLayer.LOTTIE_IMAGE + File.separator + asset.getFileName();
+					BitmapFactory.Options options = new BitmapFactory.Options();
+					// 不用加载图片返回图片
+					options.inJustDecodeBounds = false;
+					options.inPreferredConfig = Bitmap.Config.RGB_565;
+					options.inDither = true;
+					return BitmapFactory.decodeFile(imagePath, options);
+				}
+			});
+			layer.setTarget(animationView);
+			addView(animationView, params);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

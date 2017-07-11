@@ -18,9 +18,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-import static com.gj.effect.ImageLayer.ACTION_TYPE_APHA;
-import static com.gj.effect.ImageLayer.ACTION_TYPE_ROTATION;
-import static com.gj.effect.ImageLayer.ACTION_TYPE_SCALE;
 
 /**
  * Created by Administrator on 2017/2/14.
@@ -157,7 +154,7 @@ public class EffectComposition {
 						animator.setRepeatCount(action.optInt("repeatCount", 0));
 						animator.setDuration(action.getInt("duration"));
 						composition.animations.add(animator);
-					} else if (ACTION_TYPE_SCALE.equals(action.getString("type"))) {
+					} else if (ImageLayer.ACTION_TYPE_SCALE.equals(action.getString("type"))) {
 						JSONArray keyframeArray = action.getJSONArray("keyframes");
 						Keyframe[] keyframes = new Keyframe[keyframeArray.length()];
 						for (int k = 0; k < keyframeArray.length(); k++) {
@@ -174,7 +171,7 @@ public class EffectComposition {
 						animator.setRepeatCount(action.optInt("repeatCount", 0));
 						animator.setDuration(action.getInt("duration"));
 						composition.animations.add(animator);
-					} else if (ACTION_TYPE_APHA.equals(action.getString("type"))) {
+					} else if (ImageLayer.ACTION_TYPE_APHA.equals(action.getString("type"))) {
 						JSONArray keyframeArray = action.getJSONArray("keyframes");
 						Keyframe[] keyframes = new Keyframe[keyframeArray.length()];
 						for (int k = 0; k < keyframeArray.length(); k++) {
@@ -190,7 +187,7 @@ public class EffectComposition {
 						animator.setRepeatCount(action.optInt("repeatCount", 0));
 						animator.setDuration(action.getInt("duration"));
 						composition.animations.add(animator);
-					} else if (ACTION_TYPE_ROTATION.equals(action.getString("type"))) {
+					} else if (ImageLayer.ACTION_TYPE_ROTATION.equals(action.getString("type"))) {
 						JSONArray keyframeArray = action.getJSONArray("keyframes");
 						Keyframe[] keyframes = new Keyframe[keyframeArray.length()];
 						for (int k = 0; k < keyframeArray.length(); k++) {
@@ -223,6 +220,9 @@ public class EffectComposition {
 					layer.fromJson(jsonLayers.getJSONObject(i));
 				} else if (Layer.LAYER_TYPE_GIF.equals(jsonLayers.getJSONObject(i).getString("type"))) {
 					layer = new GifLayer(context);
+					layer.fromJson(jsonLayers.getJSONObject(i));
+				} else if (Layer.LAYER_TYPE_SVG.equals(jsonLayers.getJSONObject(i).getString("type"))) {
+					layer = new LottieLayer(context);
 					layer.fromJson(jsonLayers.getJSONObject(i));
 				}
 				addLayer(composition, layer);
