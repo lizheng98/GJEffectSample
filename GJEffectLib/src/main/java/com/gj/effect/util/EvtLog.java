@@ -21,32 +21,23 @@ import java.net.UnknownServiceException;
 
 /**
  * 日志打印类.
- * 
- * @author 
- * 
+ *
+ * @author
  */
 public class EvtLog {
 	public static boolean IS_DEBUG_LOGGABLE = true;
 	public static boolean IS_ERROR_LOGGABLE = true;
-	
+
 	private static final int INDEX_CLASS = 0;
 	private static final int INDEX_FILE = 1;
 	private static final int INDEX_METHOD = 2;
 	private static final int INDEX_LINE = 3;
-	
-	static {
-//		IS_DEBUG_LOGGABLE = PackageUtil.getConfigBoolean("debug_log_enable");
-//		IS_ERROR_LOGGABLE = PackageUtil.getConfigBoolean("error_log_enable");
-	}
 
 	/**
 	 * 输出debug信息
-	 * 
-	 * @param tag
-	 *            标签
-	 * @param msg
-	 *            信息
-	 * 
+	 *
+	 * @param tag 标签
+	 * @param msg 信息
 	 */
 	public static void d(String tag, String msg) {
 		if (IS_DEBUG_LOGGABLE) {
@@ -56,18 +47,14 @@ public class EvtLog {
 
 	/**
 	 * 输出debug信息
-	 * 
-	 * @param cls
-	 *            执行类
-	 * @param tag
-	 *            标签
-	 * @param msg
-	 *            信息
-	 * 
+	 *
+	 * @param cls 执行类
+	 * @param tag 标签
+	 * @param msg 信息
 	 */
 	public static void d(Class<?> cls, String tag, String msg) {
 		if (IS_DEBUG_LOGGABLE) {
-			if(cls != null) {
+			if (cls != null) {
 				String[] classInfo = getInvokeClassInfo(cls.getName());
 				Log.d(tag, formatLogToString(classInfo, tag, msg));
 				return;
@@ -77,136 +64,113 @@ public class EvtLog {
 	}
 
 	/**
-	 * 输出info信息 
-	 * 
-	 * @param tag
-	 *            标签
-	 * @param msg
-	 *            信息
-	 * 
+	 * 输出info信息
+	 *
+	 * @param tag 标签
+	 * @param msg 信息
 	 */
 	public static void i(String tag, String msg) {
 		if (IS_DEBUG_LOGGABLE) {
 			Log.i(tag, formatLogToString(tag, msg));
 		}
-	}	
-	
-	
+	}
+
+
 	/**
 	 * 输出info信息
-	 * 
-	 * @param cls
-	 *            执行类 
-	 * @param tag
-	 *            标签
-	 * @param msg
-	 *            信息
-	 * 
+	 *
+	 * @param cls 执行类
+	 * @param tag 标签
+	 * @param msg 信息
 	 */
 	public static void i(Class<?> cls, String tag, String msg) {
 		if (IS_DEBUG_LOGGABLE) {
-			if(cls != null) {
+			if (cls != null) {
 				String[] classInfo = getInvokeClassInfo(cls.getName());
 				Log.i(tag, formatLogToString(classInfo, tag, msg));
 				return;
 			}
 			Log.i(tag, formatLogToString(tag, msg));
 		}
-	}	
-	
+	}
+
 	/**
 	 * 输出warn信息
-	 * 
-	 * @param tag
-	 *            标签
-	 * @param msg
-	 *            信息
-	 * 
+	 *
+	 * @param tag 标签
+	 * @param msg 信息
 	 */
 	public static void w(String tag, String msg) {
 		if (IS_DEBUG_LOGGABLE) {
 			Log.w(tag, formatLogToString(tag, msg));
 		}
 	}
-	
+
 	/**
 	 * 输出错误信息
-	 * 
-	 * @param tag
-	 *            标签
-	 * @param exception
-	 *            输出异常信息到控制台
+	 *
+	 * @param tag       标签
+	 * @param exception 输出异常信息到控制台
 	 */
 	public static void w(String tag, Throwable exception) {
 		if (IS_DEBUG_LOGGABLE) {
 			Log.w(tag, exception);
 		}
 	}
-	
+
 	/**
 	 * 输出warn信息
-	 * 
-	 * @param cls
-	 *            执行类 
-	 * @param tag
-	 *            标签
-	 * @param msg
-	 *            信息
-	 * 
+	 *
+	 * @param cls 执行类
+	 * @param tag 标签
+	 * @param msg 信息
 	 */
 	public static void w(Class<?> cls, String tag, String msg) {
 		if (IS_DEBUG_LOGGABLE) {
-			if(cls != null) {
+			if (cls != null) {
 				String[] classInfo = getInvokeClassInfo(cls.getName());
 				Log.w(tag, formatLogToString(classInfo, tag, msg));
 				return;
 			}
 			Log.w(tag, formatLogToString(tag, msg));
 		}
-	}	
+	}
 
 	/**
 	 * 输出warn信息
-	 * 
-	 * @param exception
-	 *            异常信息 
-	 * @param tag
-	 *            标签
-	 * @param msg
-	 *            信息
-	 * 
+	 *
+	 * @param exception 异常信息
+	 * @param tag       标签
+	 * @param msg       信息
 	 */
 	public static void w(Throwable exception, String tag, String msg) {
 		if (IS_DEBUG_LOGGABLE) {
-			if(exception != null) {
+			if (exception != null) {
 				String[] classInfo = getInvokeClassInfo(exception);
 				Log.w(tag, formatLogToString(classInfo, tag, msg));
 				return;
 			}
 			Log.w(tag, formatLogToString(tag, msg));
 		}
-	}	
+	}
 
-	
+
 	/**
 	 * 输出error信息并在程序中toast显示，该错误不会记录在日志文件中
-	 * 
-	 * @param tag
-	 *            标签
-	 * @param msg
-	 *            信息
-	 * 
+	 *
+	 * @param tag 标签
+	 * @param msg 信息
 	 */
 	public static void e(String tag, String msg) {
 		if (IS_ERROR_LOGGABLE) {
 			Log.e(tag, formatLogToString(tag, msg));
 		}
 	}
+
 	/**
-	 * 
-	 * @param tag 
-	 * @param msg 
-	 * @param isShowDialog 
+	 * @param tag
+	 * @param msg
+	 * @param isShowDialog
 	 */
 	public static void e(String tag, String msg, boolean isShowDialog) {
 		if (IS_ERROR_LOGGABLE) {
@@ -219,9 +183,8 @@ public class EvtLog {
 
 	/**
 	 * 输出错误信息
-	 * 
-	 * @param tag
-	 *            标签
+	 *
+	 * @param tag       标签
 	 * @param exception
 	 */
 	public static void e(String tag, Throwable exception) {
@@ -232,18 +195,14 @@ public class EvtLog {
 
 	/**
 	 * 输出error信息
-	 * 
-	 * @param cls
-	 *            执行类 
-	 * @param tag
-	 *            标签
-	 * @param msg
-	 *            信息
-	 * 
+	 *
+	 * @param cls 执行类
+	 * @param tag 标签
+	 * @param msg 信息
 	 */
 	public static void e(Class<?> cls, String tag, String msg) {
 		if (IS_ERROR_LOGGABLE) {
-			if(cls != null) {
+			if (cls != null) {
 				String[] classInfo = getInvokeClassInfo(cls.getName());
 				Log.e(tag, formatLogToString(classInfo, tag, msg));
 				return;
@@ -251,21 +210,17 @@ public class EvtLog {
 			Log.e(tag, formatLogToString(tag, msg));
 		}
 	}
-	
+
 	/**
 	 * 输出error信息
-	 * 
-	 * @param tag
-	 *            标签
-	 * @param msg
-	 *            信息
-	 * @param exception
-	 *            异常信息 
-	 * 
+	 *
+	 * @param tag       标签
+	 * @param msg       信息
+	 * @param exception 异常信息
 	 */
 	public static void e(String tag, String msg, Throwable exception) {
 		if (IS_ERROR_LOGGABLE) {
-			if(exception != null) {
+			if (exception != null) {
 				String[] classInfo = getInvokeClassInfo(exception);
 				Log.e(tag, formatLogToString(classInfo, tag, msg), exception);
 				return;
@@ -292,14 +247,11 @@ public class EvtLog {
 
 	/**
 	 * 返回类信息.
-	 * 
-	 * @param className
-	 *            类名
-	 * @param String[]
-	 *			     类的详细信息
+	 *
+	 * @param className 类名
 	 */
 	static String[] getInvokeClassInfo(String className) {
-		if(className == null || TextUtils.isEmpty(className)) {
+		if (className == null || TextUtils.isEmpty(className)) {
 			return null;
 		}
 		String[] result = null;
@@ -326,17 +278,14 @@ public class EvtLog {
 		}
 		return result;
 	}
-	
+
 	/**
 	 * 返回异常信息.
-	 * 
-	 * @param throwable
-	 *            异常
-	 * @param String[]
-	 *			     异常的详细信息
+	 *
+	 * @param exception 异常
 	 */
 	static String[] getInvokeClassInfo(Throwable exception) {
-		if(exception == null) {
+		if (exception == null) {
 			return null;
 		}
 		String[] result = null;
@@ -354,17 +303,14 @@ public class EvtLog {
 		}
 		return result;
 	}
-	
+
 	/**
 	 * 返回异常的详细信息字符串.
-	 * 
-	 * @param throwable
-	 *            异常
-	 * @param String
-	 *			     异常的详细信息字符串
+	 *
+	 * @param exception 异常
 	 */
 	static String getStackTraceToString(Throwable exception) {
-		if(exception == null) {
+		if (exception == null) {
 			return null;
 		}
 		String result = null;
@@ -374,20 +320,20 @@ public class EvtLog {
 		result = sw.toString();
 		return result;
 	}
-	
+
 	static String formatLogToString(String[] classInfo, String tag, String msg) {
 		StringBuffer sb = new StringBuffer();
 		sb.append("[" + tag + "]");
-		
+
 		if (classInfo != null) {
 			sb.append("[" + classInfo[INDEX_CLASS] + "]");
 			sb.append("[" + classInfo[INDEX_METHOD] + "]");
-			sb.append("[line:"  + classInfo[INDEX_LINE] + "] \n");
+			sb.append("[line:" + classInfo[INDEX_LINE] + "] \n");
 		}
 		sb.append("[" + msg + "]");
 		return sb.toString();
 	}
-	
+
 	static String formatLogToString(String tag, String msg) {
 		StringBuffer sb = new StringBuffer();
 		sb.append("[" + tag + "]");

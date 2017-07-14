@@ -2,6 +2,7 @@ package com.gj.file.load;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.gj.effect.util.EvtLog;
 import com.gj.effect.util.FileUtil;
@@ -34,7 +35,7 @@ public class DiskCache implements FileCache {
 		String md5FileName = getMd5(url);
 		String path = mFileRootPath + File.separator + md5FileName + suffix;//带.tmp后缀的是没有下载完成的，用于加载第一帧，不带tmp后缀是下载完成的，
 		//这样做的目的是为了防止一个图片正在下载的时候，另一个请求相同url的imageView使用未下载完毕的文件显示一半图像
-		EvtLog.i("AlexGIF", "gif图片的缓存路径是" + path);
+		Log.i("AlexGIF", "gif图片的缓存路径是" + path);
 		File cacheFile = new File(path);
 		return cacheFile;
 	}

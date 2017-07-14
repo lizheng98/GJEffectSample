@@ -1,6 +1,6 @@
 package com.gj.file.load;
 
-
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.gj.effect.util.FileUtil;
@@ -27,14 +27,14 @@ public class AsyLoadTask implements LoadTask {
 	 */
 	@Override
 	public void loadTask(final String uri, final String targetFilePath, final LoadingListener listener) {
-		new AlxMultiTask<Void, Void, Void>() {//开启一个多线程池，大小为cpu数量+1
+		new AsyncTask<Void, Void, Void>() {//开启一个多线程池，大小为cpu数量+1
 
 			@Override
 			protected Void doInBackground(Void... params) {
 				downloadToStream(uri, targetFilePath, listener);
 				return null;
 			}
-		}.executeDependSDK();
+		}.execute();
 	}
 
 

@@ -1,8 +1,8 @@
 package com.gj.effect;
 
 import android.content.Context;
+import android.util.Log;
 
-import com.gj.effect.util.EvtLog;
 import com.gj.file.load.AsyLoadTask;
 import com.gj.file.load.DiskCache;
 import com.gj.file.load.FileCache;
@@ -56,7 +56,7 @@ public class EffectGiftLoader {
 		File cacheFile = mGifCache.get(url);
 		if (cacheFile.exists()) {
 			loadingListener.onLoadingSuccess(cacheFile.getAbsolutePath());
-			EvtLog.i(TAG, "动效资源已有缓存");
+			Log.i(TAG, "动效资源已有缓存");
 			return;
 		}
 		final String cacheFileAbsPath = cacheFile.getAbsolutePath() + EFFECT_TEMP_FILE_SUBIFX;
