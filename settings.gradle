@@ -1,1 +1,1 @@
-include ':app', ':effect-lib', ':Leonidslib'
+include ':app', ':effect-lib'

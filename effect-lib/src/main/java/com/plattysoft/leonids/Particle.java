@@ -5,9 +5,9 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 
-import com.plattysoft.leonids.modifiers.ParticleModifier;
-
 import java.util.List;
+
+import com.plattysoft.leonids.modifiers.ParticleModifier;
 
 public class Particle {
 

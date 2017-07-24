@@ -16,6 +16,13 @@ import android.view.ViewGroup;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import com.plattysoft.leonids.initializers.AccelerationInitializer;
 import com.plattysoft.leonids.initializers.ParticleInitializer;
 import com.plattysoft.leonids.initializers.RotationInitiazer;
@@ -25,13 +32,6 @@ import com.plattysoft.leonids.initializers.SpeeddByComponentsInitializer;
 import com.plattysoft.leonids.initializers.SpeeddModuleAndRangeInitializer;
 import com.plattysoft.leonids.modifiers.AlphaModifier;
 import com.plattysoft.leonids.modifiers.ParticleModifier;
-
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class ParticleSystem {
 
@@ -391,7 +391,7 @@ public class ParticleSystem {
 	private void startEmiting(int particlesPerSecond) {
 		mActivatedParticles = 0;
 		mParticlesPerMilisecond = particlesPerSecond / 1000f;
-		// Add a full size view to the parent view		
+		// Add a full size view to the parent view
 		mDrawingView = new ParticleField(mParentView.getContext());
 		mParentView.addView(mDrawingView);
 		mEmitingTime = -1; // Meaning infinite
@@ -407,7 +407,7 @@ public class ParticleSystem {
 	}
 
 	private void configureEmiter(int emitterX, int emitterY) {
-		// We configure the emiter based on the window location to fix the offset of action bar if present		
+		// We configure the emiter based on the window location to fix the offset of action bar if present
 		mEmiterXMin = emitterX - mParentLocation[0];
 		mEmiterXMax = mEmiterXMin;
 		mEmiterYMin = emitterY - mParentLocation[1];
@@ -417,7 +417,7 @@ public class ParticleSystem {
 	private void startEmiting(int particlesPerSecond, int emitingTime) {
 		mActivatedParticles = 0;
 		mParticlesPerMilisecond = particlesPerSecond / 1000f;
-		// Add a full size view to the parent view		
+		// Add a full size view to the parent view
 		mDrawingView = new ParticleField(mParentView.getContext());
 		mParentView.addView(mDrawingView);
 
@@ -470,7 +470,7 @@ public class ParticleSystem {
 		for (int i = 0; i < numParticles && i < mMaxParticles; i++) {
 			activateParticle(0);
 		}
-		// Add a full size view to the parent view		
+		// Add a full size view to the parent view
 		mDrawingView = new ParticleField(mParentView.getContext());
 		mParentView.addView(mDrawingView);
 		mDrawingView.setParticles(mActiveParticles);
