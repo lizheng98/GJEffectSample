@@ -11,7 +11,16 @@
   支持粒子重力动画<br/>
   
   三者结合实现复杂、绚丽的动画效果<br/><br/>
-  
+  
+#Download
+
+Gradle is the only supported build configuration, so just add the dependency to your project build.gradle file:
+
+dependencies {  
+  compile 'com.guojiang.android:effect-lib:1.1.0'
+}
+<br/>
+
 #Using：
 
   动画实现使用GJEffectView控件实现。<br/>
