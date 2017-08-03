@@ -9,6 +9,7 @@
   支持图片的属性动画属性PropertyValuesHolder Keyframe<br/>
   支持Gif动画<br/>
   支持粒子重力动画<br/>
+  支持svg动画<br/>
   
   三者结合实现复杂、绚丽的动画效果<br/><br/>
   
