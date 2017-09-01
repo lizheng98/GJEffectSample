@@ -32,8 +32,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 21
-        versionCode 1
-        versionName "1.0.0"
+        versionCode 3
+        versionName "1.1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -54,7 +54,7 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.2'
     //svg动画库
-    compile 'com.airbnb.android:lottie:2.0.0-rc1'
+    compile 'com.airbnb.android:lottie:2.2.0'
 }
 
 ////添加

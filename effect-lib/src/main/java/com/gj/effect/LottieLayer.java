@@ -28,6 +28,8 @@ public class LottieLayer extends Layer {
 	public static String ACTION_TYPE_ROTATION = "rotation";
 	private ArrayList<Animator> animations = new ArrayList<>();
 
+	private int scaleType = -1;
+
 	private boolean isLoop;
 
 	private String folder;
@@ -38,6 +40,10 @@ public class LottieLayer extends Layer {
 
 	public String getFolder() {
 		return folder;
+	}
+
+	public int getScaleType() {
+		return scaleType;
 	}
 
 	public LottieLayer(Context context) {
@@ -51,6 +57,7 @@ public class LottieLayer extends Layer {
 		try {
 			folder = json.getString("folder");
 			JSONArray actions = json.optJSONArray("actions");
+			scaleType = json.optInt("scaleType");
 			if (actions != null) {
 				for (int i = 0; i < actions.length(); i++) {
 					JSONObject action = actions.getJSONObject(i);

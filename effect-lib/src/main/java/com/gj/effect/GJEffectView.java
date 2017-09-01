@@ -200,6 +200,7 @@ public class GJEffectView extends RelativeLayout {
 
 			animationView.setVisibility(View.INVISIBLE);
 			animationView.loop(layer.isLoop());
+			setLottieAnimationScaleType(animationView, layer.getScaleType());
 			animationView.setImageAssetDelegate(new ImageAssetDelegate() {
 				@Override
 				public Bitmap fetchBitmap(LottieImageAsset asset) {
@@ -216,6 +217,43 @@ public class GJEffectView extends RelativeLayout {
 			addView(animationView, params);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 设置scaleType
+	 *
+	 * @param scaleType {@link android.widget.ImageView.ScaleType}
+	 */
+	private void setLottieAnimationScaleType(LottieAnimationView view, int scaleType) {
+		if (scaleType == -1) {
+			return;
+		}
+		switch (scaleType) {
+			case 0:
+				view.setScaleType(ImageView.ScaleType.MATRIX);
+				break;
+			case 1:
+				view.setScaleType(ImageView.ScaleType.FIT_XY);
+				break;
+			case 2:
+				view.setScaleType(ImageView.ScaleType.FIT_START);
+				break;
+			case 3:
+				view.setScaleType(ImageView.ScaleType.FIT_CENTER);
+				break;
+			case 4:
+				view.setScaleType(ImageView.ScaleType.FIT_END);
+				break;
+			case 5:
+				view.setScaleType(ImageView.ScaleType.CENTER);
+				break;
+			case 6:
+				view.setScaleType(ImageView.ScaleType.CENTER_CROP);
+				break;
+			case 7:
+				view.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+				break;
 		}
 	}
 
