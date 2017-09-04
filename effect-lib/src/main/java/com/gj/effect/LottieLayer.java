@@ -57,7 +57,7 @@ public class LottieLayer extends Layer {
 		try {
 			folder = json.getString("folder");
 			JSONArray actions = json.optJSONArray("actions");
-			scaleType = json.optInt("scaleType");
+			scaleType = json.optInt("scaleType", -1);
 			if (actions != null) {
 				for (int i = 0; i < actions.length(); i++) {
 					JSONObject action = actions.getJSONObject(i);
